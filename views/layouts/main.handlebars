@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Passport App</title>
+    <link rel="stylesheet" href="/css/style.css">
+  </head>
+  <body>
+    {{#if success_msg}}
+      <div class="alert alert-success">{{success_msg}}</div>
+    {{/if}}
+    {{#if error_msg}}
+      <div class="alert alert-danger">{{error_msg}}</div>
+    {{/if}}
+    {{#if errors}}
+      {{#each errors}}
+        <div class="alert alert-danger">{{msg}}</div>
+      {{/each}}
+    {{/if}}
+    {{{body}}}
+  </body>
+</html>
