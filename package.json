@@ -1,0 +1,15 @@
+{
+  "name": "complaint-system",
+  "version": "1.0.0",
+  "description": "A simple Complaint System with Auth using Passport",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "complaint",
+    "system"
+  ],
+  "author": "Jatin Varlyani",
+  "license": "ISC"
+}
