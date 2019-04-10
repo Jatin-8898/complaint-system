@@ -11,5 +11,19 @@
     "system"
   ],
   "author": "Jatin Varlyani",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "express": "*",
+    "body-parser": "*",
+    "express-handlebars": "*",
+    "express-messages": "*",
+    "express-session": "*",
+    "express-validator": "*",
+    "connect-flash": "*",
+    "mongoose": "*",
+    "passport": "*",
+    "passport-http": "*",
+    "passport-local": "*",
+    "bcryptjs": "*"
+  }
 }
