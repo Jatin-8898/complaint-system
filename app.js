@@ -12,6 +12,13 @@ const app = express();
 
 const port = 3000;
 
+// View Engine
+app.engine('handlebars', exphbs({defaultLayout:'main'}));
+app.set('view engine', 'handlebars');
+
+// Static Folder
+app.use(express.static(path.join(__dirname, 'public')));
+
 // Start Server
 app.listen(port, () => {
   console.log('Server started on port '+port);
