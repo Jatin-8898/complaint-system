@@ -2,24 +2,53 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Passport App</title>
+    <title>Complaint System</title>
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://bootswatch.com/flatly/bootstrap.min.css">
   </head>
   <body>
-    {{#if success_msg}}
-      <div class="alert alert-success">{{success_msg}}</div>
-    {{/if}}
-    {{#if error_msg}}
-      <div class="alert alert-danger">{{error_msg}}</div>
-    {{/if}}
-    {{#if error}}
-      <div class="alert alert-danger">{{error}}</div>
-    {{/if}}
-    {{#if errors}}
-      {{#each errors}}
-        <div class="alert alert-danger">{{msg}}</div>
-      {{/each}}
-    {{/if}}
-    {{{body}}}
+    <nav class="navbar navbar-inverse">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Complaint System</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav navbar-left">
+            <li><a href="/">Dashbaord</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            {{#if user}}
+              <li><a href="/logout">Logout</a></li>
+            {{else}}
+              <li><a href="/login">Login</a></li>
+              <li><a href="/register">Register</a></li>
+            {{/if}}
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+    <div class="container">
+      {{#if success_msg}}
+        <div class="alert alert-success">{{success_msg}}</div>
+      {{/if}}
+      {{#if error_msg}}
+        <div class="alert alert-danger">{{error_msg}}</div>
+      {{/if}}
+      {{#if error}}
+        <div class="alert alert-danger">{{error}}</div>
+      {{/if}}
+      {{#if errors}}
+        {{#each errors}}
+          <div class="alert alert-danger">{{msg}}</div>
+        {{/each}}
+      {{/if}}
+      {{{body}}}
+    </div>
   </body>
 </html>
