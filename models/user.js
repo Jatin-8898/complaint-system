@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/passportapp');
+mongoose.connect('mongodb://localhost/complaintapp');
 const bcrypt = require('bcryptjs');
 
 // User Schema
