@@ -12,6 +12,8 @@ const app = express();
 
 const port = 3000;
 
+const index = require('./routes/index');
+
 // View Engine
 app.engine('handlebars', exphbs({defaultLayout:'main'}));
 app.set('view engine', 'handlebars');
