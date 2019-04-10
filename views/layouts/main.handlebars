@@ -12,6 +12,9 @@
     {{#if error_msg}}
       <div class="alert alert-danger">{{error_msg}}</div>
     {{/if}}
+    {{#if error}}
+      <div class="alert alert-danger">{{error}}</div>
+    {{/if}}
     {{#if errors}}
       {{#each errors}}
         <div class="alert alert-danger">{{msg}}</div>
