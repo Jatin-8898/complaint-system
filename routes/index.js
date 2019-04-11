@@ -4,6 +4,7 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 
 let User = require('../models/user');
+let Complaint = require('../models/complaint');
 
 // Home Page - Dashboard
 router.get('/', ensureAuthenticated, (req, res, next) => {
@@ -35,6 +36,42 @@ router.get('/complaint', (req, res, next) => {
         username: req.session.user,
     });
 });
+
+//Register a Complaint
+router.post('/registerComplaint', (req, res, next) => {
+    const name = req.body.name;
+    const email = req.body.email;
+    const contact = req.body.contact;
+    const desc = req.body.desc;
+    
+    const postBody = req.body;
+    console.log(postBody);
+
+    req.checkBody('contact', 'Contact field is required').notEmpty();
+    req.checkBody('desc', 'Description field is required').notEmpty();
+
+    let errors = req.validationErrors();
+
+    if (errors) {
+        res.render('complaint', {
+            errors: errors
+        });
+    } else {
+        const newComplaint = new Complaint({
+            name: name,
+            email: email,
+            contact: contact,
+            desc: desc,
+        });
+
+        Complaint.registerComplaint(newComplaint, (err, complaint) => {
+            if (err) throw err;
+            req.flash('success_msg', 'You have successfully launched a complaint');
+            res.redirect('/');
+        });
+    }
+});
+
 
 
 // Process Register
