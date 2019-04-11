@@ -10,7 +10,7 @@ const mongoose = require('mongoose');
 
 const app = express();
 
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 const index = require('./routes/index');
 
@@ -29,8 +29,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(session({
     secret: 'secret',
     saveUninitialized: true,
-    resave: true
+    resave: true,
+    maxAge: null,
+    cookie : { httpOnly: true, maxAge: 2419200000 } // configure when sessions expires
 }));
+
 
 // Init passport
 app.use(passport.initialize());
