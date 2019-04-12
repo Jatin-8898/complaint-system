@@ -25,3 +25,7 @@ const Complaint = module.exports = mongoose.model('Complaint', ComplaintSchema);
 module.exports.registerComplaint = function (newComplaint, callback) {
     newComplaint.save(callback);
 }
+
+module.exports.getAllComplaints = function(callback){
+    Complaint.find(callback);
+  }
