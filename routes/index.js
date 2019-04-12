@@ -22,24 +22,32 @@ router.get('/register', (req, res, next) => {
 });
 
 // Logout
-router.get('/logout', (req, res, next) => {
+router.get('/logout', ensureAuthenticated,(req, res, next) => {
     req.logout();
     req.flash('success_msg', 'You are logged out');
     res.redirect('/login');
 });
 
 // Admin
-router.get('/admin', (req,res,next) => {
-    res.render('admin/admin');
+router.get('/admin', ensureAuthenticated, (req,res,next) => {
+    Complaint.getAllComplaints((err, complaints) => {
+        if (err) throw err;
+        //console.log(req.complaints);
+
+        res.render('admin/admin', {
+            complaints : complaints,
+        });
+    });
+        
 });
 
 // Junior Eng
-router.get('/jeng', (req,res,next) => {
+router.get('/jeng', ensureAuthenticated, (req,res,next) => {
     res.render('junior/junior');
 });
 
 //Complaint
-router.get('/complaint', (req, res, next) => {
+router.get('/complaint', ensureAuthenticated, (req, res, next) => {
     //console.log(req.session.passport.username);
     //console.log(user.name);
     res.render('complaint', {
