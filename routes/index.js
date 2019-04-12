@@ -81,6 +81,7 @@ router.post('/register', (req, res, next) => {
     const email = req.body.email;
     const password = req.body.password;
     const password2 = req.body.password2;
+    const role = req.body.role;
 
     req.checkBody('name', 'Name field is required').notEmpty();
     req.checkBody('email', 'Email field is required').notEmpty();
@@ -88,6 +89,7 @@ router.post('/register', (req, res, next) => {
     req.checkBody('username', 'Username field is required').notEmpty();
     req.checkBody('password', 'Password field is required').notEmpty();
     req.checkBody('password2', 'Passwords do not match').equals(req.body.password);
+    req.checkBody('role', 'Role option is required').notEmpty();
 
     let errors = req.validationErrors();
 
@@ -100,12 +102,13 @@ router.post('/register', (req, res, next) => {
             name: name,
             username: username,
             email: email,
-            password: password
+            password: password,
+            role: role
         });
 
         User.registerUser(newUser, (err, user) => {
             if (err) throw err;
-            req.flash('success_msg', 'You are registered and can log in');
+            req.flash('success_msg', 'You are Successfully Registered and can Log in');
             res.redirect('/login');
         });
     }
@@ -138,7 +141,8 @@ passport.serializeUser((user, done) => {
     var sessionUser = {
         _id: user._id,
         name: user.name,
-        email: user.email
+        email: user.email,
+        role: user.role,
     }
     done(null, sessionUser);
 });
