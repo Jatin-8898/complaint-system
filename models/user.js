@@ -1,6 +1,9 @@
-const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/complaintapp', { useNewUrlParser: true });
+const mongoose = require('mongoose')
+const dbconnect = require('../db')
 const bcrypt = require('bcryptjs');
+
+//Call the db to connect the mongo db
+dbconnect()
 
 // User Schema
 const UserSchema = mongoose.Schema({
@@ -8,12 +11,18 @@ const UserSchema = mongoose.Schema({
         type: String
     },
     username: {
-        type: String
+        type: String,
+        unique: true,
+        required: true
     },
     email: {
         type: String
     },
     password: {
+        type: String,
+        required: true
+    },
+    role: {
         type: String
     }
 });

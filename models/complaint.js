@@ -1,6 +1,8 @@
-const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/complaintapp', { useNewUrlParser: true });
+const mongoose = require('mongoose')
+const dbconnect = require('../db')
 
+//Call the db to connect the mongo db
+dbconnect()
 
 // Complaint Schema
 const ComplaintSchema = mongoose.Schema({
