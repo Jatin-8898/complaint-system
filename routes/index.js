@@ -28,6 +28,16 @@ router.get('/logout', (req, res, next) => {
     res.redirect('/login');
 });
 
+// Admin
+router.get('/admin', (req,res,next) => {
+    res.render('admin/admin');
+});
+
+// Junior Eng
+router.get('/jeng', (req,res,next) => {
+    res.render('junior/junior');
+});
+
 //Complaint
 router.get('/complaint', (req, res, next) => {
     //console.log(req.session.passport.username);
@@ -141,6 +151,7 @@ passport.serializeUser((user, done) => {
     var sessionUser = {
         _id: user._id,
         name: user.name,
+        username: user.username,
         email: user.email,
         role: user.role,
     }
@@ -154,12 +165,27 @@ passport.deserializeUser((id, done) => {
 });
 
 // Login Processing
-router.post('/login', (req, res, next) => {
-    passport.authenticate('local', {
-        successRedirect: '/',
-        failureRedirect: '/login',
-        failureFlash: true
-    })(req, res, next);
+router.post('/login', passport.authenticate('local', 
+    { 
+        failureRedirect: '/login', 
+        failureFlash: true 
+    
+    }), (req, res, next) => {
+    
+        req.session.save((err) => {
+        if (err) {
+            return next(err);
+        }
+        if(req.user.role==='admin'){
+            res.redirect('/admin');
+        }
+        else if(req.user.role==='jeng'){
+            res.redirect('/jeng');
+        }
+        else{
+            res.redirect('/');
+        }
+    });
 });
 
 // Access Control
@@ -167,7 +193,7 @@ function ensureAuthenticated(req, res, next) {
     if (req.isAuthenticated()) {
         return next();
     } else {
-        req.flash('error_msg', 'You are not authorized to view that page');
+        req.flash('error_msg', 'You are not Authorized to view this page');
         res.redirect('/login');
     }
 }
