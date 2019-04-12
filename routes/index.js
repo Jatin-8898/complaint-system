@@ -5,6 +5,7 @@ const LocalStrategy = require('passport-local').Strategy;
 
 let User = require('../models/user');
 let Complaint = require('../models/complaint');
+let ComplaintMapping = require('../models/complaint-mapping');
 
 // Home Page - Dashboard
 router.get('/', ensureAuthenticated, (req, res, next) => {
@@ -32,13 +33,46 @@ router.get('/logout', ensureAuthenticated,(req, res, next) => {
 router.get('/admin', ensureAuthenticated, (req,res,next) => {
     Complaint.getAllComplaints((err, complaints) => {
         if (err) throw err;
-        //console.log(req.complaints);
+    
+        User.getEngineer((err, engineer) => {
+            if (err) throw err;
 
-        res.render('admin/admin', {
-            complaints : complaints,
+            res.render('admin/admin', {
+                complaints : complaints,
+                engineer : engineer,
+            });
         });
-    });
-        
+    });        
+});
+
+
+// Assign the Complaint to Engineer
+router.post('/assign', (req,res,next) => {
+    const complaintID = req.body.complaintID;
+    const engineerName = req.body.engineerName;
+
+    req.checkBody('complaintID', 'Contact field is required').notEmpty();
+    req.checkBody('engineerName', 'Description field is required').notEmpty();
+
+    let errors = req.validationErrors();
+
+    if (errors) {
+        res.render('admin/admin', {
+            errors: errors
+        });
+    } else {
+        const newComplaintMapping = new ComplaintMapping({
+            complaintID: complaintID,
+            engineerName: engineerName,
+        });
+
+        ComplaintMapping.registerMapping(newComplaintMapping, (err, complaint) => {
+            if (err) throw err;
+            req.flash('success_msg', 'You have successfully assigned a complaint to Engineer');
+            res.redirect('/admin');
+        });
+    }
+
 });
 
 // Junior Eng
