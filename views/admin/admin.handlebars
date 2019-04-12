@@ -2,3 +2,26 @@
 <br>
 <h3>Hello {{user.name}} !!!</h3>
 
+<br>
+<br>
+
+<table class="table table-bordered">
+  <thead class="table-success">
+    <tr>
+      <th scope="col">Customer Name</th>
+      <th scope="col">Customer Contact</th>
+      <th scope="col">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each complaints}}
+        <tr>
+        {{!--<td>{{_id}}</td>--}}            
+            <td>{{name}}</td>
+            <td>{{contact}}</td>
+            <td>{{desc}}</td>
+        </tr>
+    {{/each}}
+    
+  </tbody>
+</table>
